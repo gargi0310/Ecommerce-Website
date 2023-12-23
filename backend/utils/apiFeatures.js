@@ -9,12 +9,11 @@ class ApiFeatures{
             name:{
                 $regex:this.queryStr.keyword,
                 $options:"i", 
-
             },
         }
         :{};
 
-        console.log(keyword);
+        // console.log(keyword);
 
         this.query = this.query.find({...keyword});
         return this;
@@ -29,7 +28,7 @@ class ApiFeatures{
 
         removeFields.forEach(key=>delete queryCopy[key]);
 
-        console.log(queryCopy);
+        // console.log(queryCopy);
 
         //FILTER FOR PRICE and Rating
         let queryStr = JSON.stringify(queryCopy);
@@ -38,7 +37,7 @@ class ApiFeatures{
 
         this.query = this.query.find(JSON.parse(queryStr));
 
-        console.log(queryStr);
+        // console.log(queryStr);
         return this;
     }
 
