@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:[true, "Please enter your password"],
         minLength:[8, "Password should atleast contain 8 characters"],
-        select:false
+        select:false,
     },
     avatar:{
         public_id:{
@@ -63,7 +63,9 @@ userSchema.methods.getJWTToken = function(){
 //COMPARE PASSWORD
 
 userSchema.methods.comparePassword = async function(enterdPassword){
-    return await bcryptjs.compare(enterdPassword, this.password);
+    const isMatched = await bcryptjs.compare(enterdPassword, this.password);
+    console.log(isMatched);
+    return isMatched;
 };
 
 //GENERATING PASSWORD RESET TOKEN
@@ -78,7 +80,7 @@ userSchema.methods.getResetPasswordToken = function (){
     .createHash("sha256")
     .update(resetToken).digest("hex");
 
-    this.resetPasswordExpire = Date.now()+15 * 60*1000;
+    this.resetPasswordExpire = new Date(Date.now()+15 * 60*1000);
 
     return resetToken;
 }
