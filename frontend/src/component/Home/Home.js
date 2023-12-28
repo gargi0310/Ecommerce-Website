@@ -1,23 +1,18 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect} from 'react';
 import {CgMouse} from "react-icons/cg";
 import "./Home.css";
 import Product from "./Product.js";
 import MetaData from "../layout/metadata";
 import {getProduct} from "../../actions/productAction";
-import {useSelector, useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 
-
-
-const product = {
-    id:"gargi",
-    name:"Blue TShirt",
-    images:[{url:"https://thehouseofrare.com/cdn/shop/products/IMG_0053_5c650849-9d9d-4cc3-8863-6a23778cd9a0.jpg?v=1675170808"}],
-    price:"Rs 3000",
-}
 
 const Home = () => {
 
     const dispatch = useDispatch();
+    const {loading, error, products, productsCount} = useSelector(
+        (state)=>state.products
+    );
 
     useEffect(()=>{
         dispatch(getProduct());
@@ -41,14 +36,9 @@ const Home = () => {
     <h2 className='homeHeading'>Featured Products</h2>
 
     <div className="container" id="container">
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
+        {products && products.map(product =>(
+            <Product product={product} />
+        ))}
     </div>
     
 

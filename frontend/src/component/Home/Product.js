@@ -2,17 +2,18 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 
-const options = {
+
+const Product = ({product}) => {
+
+  const options = {
     edit:false,
     color:"rgba(20,20,20,0.1)",
     activeColor:"tomato",
     size:window.innerWidth< 700 ? 15:20,
-    value:4,
+    value:product.ratings,
     isHalf:true
 }
 
-
-const Product = ({product}) => {
   return (
 
     <Link className="productCard" to={product.id}>
@@ -20,10 +21,10 @@ const Product = ({product}) => {
         <p> {product.name} </p>
     
         <div>
-            <ReactStars {...options} /> <span> (256 Reviews) </span>
+            <ReactStars {...options} /> <span> ({product.numOfreviews} Reviews) </span>
         </div>
 
-        <span>{product.price}</span>
+        <span> {`₹${product.price}`} </span>
 
     </Link>
     
